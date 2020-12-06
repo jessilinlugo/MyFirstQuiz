@@ -1,11 +1,12 @@
 $(document).ready(function () {
 
     //importing the variables from the DOM
-    var startQuizEl = $("#start-quiz")
-    var questionsEl = $("#questions")
-    var endScreenEl = $("#end-screen")
-    var startButtonEl = $("#start-button")
-    var correctAnswers = 0
+    var startQuizEl = $("#start-quiz");
+    var questionsTitle = $("#quesTitle");
+    var questionsAnswer = $("#quesAnswer");
+    var endScreenEl = $("#end-screen");
+    var startButtonEl = $("#start-btn");
+    var correctAnswers = 0;
 
     //declaring variables
     var questionsIndex = 0;
@@ -13,56 +14,81 @@ $(document).ready(function () {
     //the questions, options, and answers are all placed in one array
     var questions = [
         {
-            title: "question 1",
-            options: [1, 2, 3, 4],
-            answer: 2,
+            title: "Commonly used data types do NOT include : ",
+            options: ["strings", "alerts", "booleans","numbers"],
+            answer: "alerts",
 
         },
         {
-            title: "question 2",
-            options: [5, 6, 7, 8],
-            answer: 7,
+            title: "The condition in an if/else statement is enclosed within ...",
+            options: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+            answer: "parenthesis",
 
         },
         {
-            title: "question 3",
-            options: [9, 10, 11, 12],
-            answer: 12,
+            title: "Arrays in JavaScript can be used to store ...",
+            options: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+            answer: "all of the above",
 
         },
         {
-            title: "question 4",
-            options: [13, 14, 15, 16],
-            answer: 13,
+            title: "String values must be enclosed within *WHAT* when being assigned to variables?",
+            options: ["commas", "curly brackets", "quotes", "parenthesis"],
+            answer: "quotes",
 
         },
         {
-            title: "question 5",
-            options: [17, 18, 19, 20],
-            answer: 18,
+            title: "A very useful tool used during development and debugging for printing content to the debugger is: ",
+            options: ["JavaScript", "terminal / bash", "for loops", "console.log"],
+            answer: "console.log",
 
         },
     ];
 
+    //this creates a variable for each question in the array
+    var currentQuestion = questions[questionsIndex];
+
     //this hides the divs on the initial load out
-    questionsEl.hide()
+    questionsTitle.hide()
+    questionsAnswer.hide()
     endScreenEl.hide()
 
     //this begins the quiz; shows the quiz div/hides the start div
     function beginQuiz() {
         startQuizEl.hide();
-        questionsEl.show();
-        console.log("i did it!")
+        questionsTitle.show();
+        questionsAnswer.show();
+        console.log("i did it!");
 
+        questionsTitle.html(currentQuestion.title);
+        
         generateQuestion();
     }
 
-
+//this generates HTML so as to create text to display for the user 
     function generateQuestion() {
-        if (questionsIndex === questionsEl.length)
+
+        currentQuestion.options.forEach(function (option) {
+            var ansButton = document.createElement("button");
+            ansButton.setAttribute("class", "options");
+            ansButton.setAttribute("value", option);
+            ansButton.textContent = option;
+            ansButton.onclick = nextQuestion;
+            questionsAnswer.append(ansButton);
+
+         
+    })
+
+        if (questionsIndex === questionsTitle.length)
             endQuiz();
     }
 
-    var currentQuestion = questions[questionsIndex];
+//this is supposed to move the quiz forward
+    function nextQuestion() {
+        questionsIndex++
+        console.log("click worked!")
+    }
 
+    startButtonEl.click(beginQuiz);
 })
+
