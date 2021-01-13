@@ -1,7 +1,7 @@
 # MyFirstQuiz
 
 Link to jessilinQuery : https://jessilinlugo.github.io/MyFirstQuiz/ 
-
+Technologies Used : some HTML and CSS, but primarily Javascript
 
 ------------
 
